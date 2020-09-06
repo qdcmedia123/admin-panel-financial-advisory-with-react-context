@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext, useMemo } from "react";
+import React, { useState, useCallback, useContext, useMemo , useEffect} from "react";
 import Header from "components/Layout/Header";
 import { withRouter } from "react-router-dom";
 import Footer from "components/Layout/Clientfooter";
@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 const Login = (props) => {
 const {loginWithEmailUser, auth}  = useContext(GlobalContext);
 
+
 const [formData, setFormData] = useState({
   email: "",
   password: "",
@@ -19,6 +20,13 @@ const [formData, setFormData] = useState({
 });
 
 
+useEffect(() => {
+ if(typeof auth.details !== 'undefined') {
+   if(typeof auth.details.access_token !== 'undefined') {
+    window.location.href = "/#/dashboard";
+   }
+ }
+}, [auth])
 
  
  const onSubmit = async (e) =>  {

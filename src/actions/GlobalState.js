@@ -1,4 +1,4 @@
-import React, {createContext, useReducer} from 'react';
+import React, {createContext, useReducer, useEffect} from 'react';
 import AppReducer from 'reducer/AppReducer';
 import Service from 'components/Service/service';
 import {endPoints} from 'config/appConfig';
@@ -30,6 +30,28 @@ export const initialState = {
 export const GlobalContext = createContext(initialState);
 
 export const GlobalProvider = ({children}) => {
+    // Here we need to work on how we can check the localstorage 
+  useEffect(() => {
+    if (localStorage.jwtToken) {
+      // Set auth token header auth
+      setAuthToken(localStorage.jwtToken);
+      // Decode token and get user info and exp
+      const decoded = jwt_decode(localStorage.jwtToken);
+      const userDetails = localStorage.userDetails;
+    
+      // Set user and isAuthenticated
+      dispatch(setCurrentUser(decoded));
+      dispatch(setUserDetails(JSON.parse(userDetails)));
+      // Check for expired token
+      const currentTime = Date.now() / 1000;
+      if (decoded.exp < currentTime) {
+        // Logout user
+        //GlobalProvider.dispatch(logoutUser());
+        window.location.href = "/#/login";
+      }
+    }
+  }, [localStorage])
+
     const [state, dispatch] = useReducer(AppReducer, initialState);
     
      function loginWithEmailUser (login_EmailUser, history){
