@@ -27,14 +27,8 @@ export const initialState = {
   
 }
 
-/*
-auth: {      
-        isAuthenticated: false,
-        user: {},
-        details: {}      
-    }
-*/
 export const GlobalContext = createContext(initialState);
+
 export const GlobalProvider = ({children}) => {
     const [state, dispatch] = useReducer(AppReducer, initialState);
     

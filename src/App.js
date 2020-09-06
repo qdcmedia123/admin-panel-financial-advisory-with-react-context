@@ -1,4 +1,4 @@
-import React, {createContext} from 'react';
+import React, {useCallback} from 'react';
 import "assets/css/styles.css";
 import {HashRouter as Router, Route, Switch } from "react-router-dom";
 import Login from 'components/Auth'
@@ -10,7 +10,7 @@ import jwt_decode from "jwt-decode";
 let history;
 
 
-
+/*
 if (localStorage.jwtToken) {
   // Set auth token header auth
   setAuthToken(localStorage.jwtToken);
@@ -29,6 +29,9 @@ if (localStorage.jwtToken) {
     window.location.href = "/#/login";
   }
 }
+*/
+
+
 
 
 
